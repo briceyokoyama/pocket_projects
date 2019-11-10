@@ -19,11 +19,12 @@ function dogLinkCreator() {
     aElement.href = dogs[key];
 
     let liElement = document.createElement('li');
-    liElement.classList.push('dog-link');
+    liElement.classList.add('dog-link');
     liElement.append(aElement);
 
     dogLinks.push(liElement);
   }
+  return dogLinks;
 }
 
 function attachDogLinks() {
@@ -31,8 +32,26 @@ function attachDogLinks() {
   const dogLinks = dogLinkCreator();
 
   dogLinks.forEach(dogLink => {
-    dropDownList
+    dropDownList.append(dogLink);
+  })
+}
+
+function handleEnter() {
+  const dogLinks = document.getElementsByClassName('dog-link');
+  Array(...dogLinks).forEach(dogLink => {
+    dogLink.style.display = 'block';
+  })
+}
+
+function handleLeave() {
+  const dogLinks = document.getElementsByClassName('dog-link');
+  Array(...dogLinks).forEach(dogLink => {
+    dogLink.style.display = 'none';
   })
 }
 
 attachDogLinks();
+
+const navElement = document.getElementsByClassName('drop-down-dog-nav')[0];
+navElement.addEventListener('mouseenter', handleEnter);
+navElement.addEventListener('mouseleave', handleLeave);
